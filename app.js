@@ -1,28 +1,13 @@
 const express = require('express');
-
 const ExpressError = require('./helpers/ExpressError');
 const morgan = require('morgan');
-
 const app = express();
 
-const SearchEngine = require('./api/invIndex');
+const apiRoutes = require('./routes/apiRoutes');
+
 
 app.use(morgan('tiny'));
-
-app.get('/api/search', function(req, res, next) {
-  try {
-    const { words } = req.query;
-    
-    // Didn't provide a search word
-    if (!words) return res.json({message: "Need key 'words' in query string"});
-
-    const results = SearchEngine.searchWords(words);
-
-    return res.json({results});
-  } catch(err) {
-    return next(err);
-  }
-})
+app.use('/api', apiRoutes);
 
 /** 404 handler */
 app.use(function (req, res, next) {
