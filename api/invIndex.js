@@ -1,6 +1,11 @@
+// Index of notes and a Mapping of Questions : Answers
 const notesIndex = require('../inverted_index/notes.json');
 const questionsAnswersMap = require('../inverted_index/q_and_a.json');
 
+/** Class that handles quickly searching for question/answer pairings based on search term.
+ * index is an object with key: word, values: array of questions that have that word
+ * qa is an object mapping questions to answers.
+ */
 class SearchEngine {
   constructor() {
     this.index = notesIndex;
