@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const SearchEngine = require('../api/invIndex');
+const ExpressError = require('../helpers/ExpressError');
 
 /** GET - hit this API to turn on the heroku backend server */
 router.get('/', function(req, res, next) {
@@ -19,7 +20,10 @@ router.get('/search', function(req, res, next) {
     const { words } = req.query;
     
     // Didn't provide a search word
-    if (!words) return res.json({message: "Need key 'words' in query string"});
+    if (!words) {
+      let message = "Need key 'words' in query string";
+      return next(new ExpressError(message, 400));
+    }
 
     const results = SearchEngine.searchWords(words);
 

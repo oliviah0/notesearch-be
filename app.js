@@ -2,16 +2,17 @@ const express = require('express');
 const ExpressError = require('./helpers/ExpressError');
 const morgan = require('morgan');
 const app = express();
+const cors = require('cors');
 
 const apiRoutes = require('./routes/apiRoutes');
 
-
+app.use(cors());
 app.use(morgan('tiny'));
 app.use('/api', apiRoutes);
 
 /** 404 handler */
 app.use(function (req, res, next) {
-  const err = new ExpressError('Not Found', 404);
+  const err = new ExpressError('URL Not Found', 404);
   return next(err);
 });
 

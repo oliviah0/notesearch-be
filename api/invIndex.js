@@ -34,7 +34,7 @@ class SearchEngine {
     // Hold all the questions that involve the words
     let questions = [];
     words.split(' ').forEach(word => {
-      let q = this.index[word];
+      let q = this.index[word] || [];
       questions = [...questions, ...q];
     });
 
