@@ -31,15 +31,18 @@ class SearchEngine {
 
   // Searches a word uses multiple words, separated by spaces
   searchWords(words) {
+    // First, given the words, find all the questions that deal with each word.
+
     // Hold all the questions that involve the words
-    let questions = [];
-    words.split(' ').forEach(word => {
+    let questions = new Set();
+    words.split(' ').forEach((word, i) => {
       let q = this.index[word] || [];
-      questions = [...questions, ...q];
+
+      // First index adds the set, the next ones grab the intersection
+      questions = new Set(i === 0 ? q : q.filter(ele => questions.has(ele)));
     });
 
-    // Remove duplicate questions
-    questions = new Set(questions);
+ 
     if (questions.size === 0) return [];
 
     // Return an array of all the question/answer pairs 
@@ -47,7 +50,26 @@ class SearchEngine {
       question,
       answer: this.qa[question]
     }));
+  }
 
+  /** Returns random question(s) and answer(s) */
+  random(amount=1) {
+    const keys = Object.keys(this.qa);
+
+    let results = [];
+    while (amount) {
+      let question = keys[keys.length * Math.random() << 0];
+      
+      let questionObj = {
+        question,
+        answer: this.qa[question] 
+      };
+
+      results.push(questionObj);
+      amount--;
+    }
+
+    return results;
 
   }
 }

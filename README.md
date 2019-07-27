@@ -1,10 +1,12 @@
-# API Documentation for Conceptual Notes Search
+# API Documentation for Conceptual Question and Answers Search
 
 | HTTP VERB | URL |
 | --- | ---|
 | GET | /api/search?words={words}|
+| GET | /api/random?amount={amount} | 
 ---
-### URI Parameters
+## GET /api/search?words={words}
+#### URI Parameters
 | Name | Input | Required | Type | Description |
 | --- | --- | --- | --- | --- |
 | words | query | True | string | Search words, space separated
@@ -25,3 +27,25 @@ Which is an array of { question , answer
     ]
 }
 ```
+
+## GET /api/random?amount={amount}
+#### URI Parameters
+| Name | Input | Required | Type | Description |
+| --- | --- | --- | --- | --- |
+| amount | query | False | integer | Amount of random Q/A's you want to pull
+
+### Response
+
+Returns a JSON, with property `results`
+Which is an array of { question , answer 
+}
+```
+{
+  results :  
+    [
+      { 
+        question: string,
+        answer: Array of strings
+      }
+    ]
+}

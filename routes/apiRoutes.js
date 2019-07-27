@@ -14,6 +14,16 @@ router.get('/', function(req, res, next) {
   }
 });
 
+/** GET - random question */
+router.get('/random', function(req, res, next) {
+  try {
+    const results = SearchEngine.random();
+    return res.json({results});
+  } catch(err) {
+    return next(err);
+  }
+});
+
 /** GET - results from search words query  */
 router.get('/search', function(req, res, next) {
   try {
