@@ -16,8 +16,11 @@ router.get('/', function(req, res, next) {
 
 /** GET - random question */
 router.get('/random', function(req, res, next) {
+  
   try {
-    const results = SearchEngine.random();
+    const { amount } = req.query;
+
+    const results = SearchEngine.random(amount);
     return res.json({results});
   } catch(err) {
     return next(err);
