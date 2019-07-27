@@ -18,6 +18,7 @@ Once finished, it will return a JSON object :
 ```
 { loaded : true }
 ```
+
 ## GET /api/search?words={words}
 #### URI Parameters
 | Name | Input | Required | Type | Description |
